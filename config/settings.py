@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+PAGINATE_BY = 5
 # Application definition
 
 INSTALLED_APPS = [

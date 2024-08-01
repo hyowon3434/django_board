@@ -1,31 +1,35 @@
-<h1>{{ board.title }}</h1>
-
-<div>
-    {{ board.content }}
-</div>
-
-
-<div>
-    <ul>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">{{ board.title }}</h1>
+    <div class="mb-4">
+        {{ board.content }}
+    </div>
+    <h3>댓글</h3>
+    <ul class="list-group mb-4">
     {% for answer in board.answer_set.all %}
-        <li>{{ answer.content }}</li>
+        <li class="list-group-item">{{ answer.content }}</li>
     {% endfor %}
     </ul>
+    <form action="{% url 'board:create_comment' board.board_id %}" method="post" class="mb-4">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="content">댓글 내용:</label>
+            <textarea name="content" id="content" rows="3" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="user_name">작성자 이름:</label>
+            <input type="text" id="user_name" name="user_name" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">댓글 등록</button>
+    </form>
 </div>
-
-<form action="{% url 'board:create_comment' board.board_id%}" method="post">
-    {% csrf_token %}
-    <textarea name="content" id="content" rows="10"></textarea><br>
-    <input type="text", id="user_name" name="user_name"><br>
-    <input type="submit" value="답글등록">
-</form>
-
-<h3>댓글</h3>
-<div>
-    <ul>
-    {% for comm in comment %}
-        <li>{{ comm.content }}</li>
-        <li>{{ comm.user_id }}</li>
-    {% endfor %}
-    </ul>
-</div>
+</body>
+</html>

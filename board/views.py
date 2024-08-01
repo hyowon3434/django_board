@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, JsonResponse
 from .models import Board, Comment, User
-import json
+from django.core.paginator import Paginator
+
 
 # Create your views here.
 def login(request):
@@ -39,9 +39,13 @@ def signup(request):
 
 def index(request):
     
-    board_list = Board.objects.order_by('board_id')
+    board_list = Board.objects.all().order_by('-createdAt')
+    paginator = Paginator(board_list, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     context = {
-        'board_list' : board_list,
+        'page_obj' : page_obj,
         'user' : request.session.get('user')
     }
     
