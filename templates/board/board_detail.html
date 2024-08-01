@@ -4,7 +4,7 @@
     {{ board.content }}
 </div>
 
-<h5>{{ board.answer_set.count }}개의 답변이 있습니다.</h5>
+
 <div>
     <ul>
     {% for answer in board.answer_set.all %}
@@ -13,8 +13,19 @@
     </ul>
 </div>
 
-<form action="{% url 'board:create_board' %}" method="post">
+<form action="{% url 'board:create_comment' board.board_id%}" method="post">
     {% csrf_token %}
-    <textarea name="content" id="content" rows="15"></textarea>
-    <input type="submit" value="답변등록">
+    <textarea name="content" id="content" rows="10"></textarea><br>
+    <input type="text", id="user_name" name="user_name"><br>
+    <input type="submit" value="답글등록">
 </form>
+
+<h3>댓글</h3>
+<div>
+    <ul>
+    {% for comm in comment.answer_set.all %}
+        <li>{{ comm.content }}</li>
+        <li>{{ comm.user_id }}</li>
+    {% endfor %}
+    </ul>
+</div>
