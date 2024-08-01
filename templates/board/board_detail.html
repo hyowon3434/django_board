@@ -30,6 +30,19 @@
         </div>
         <button type="submit" class="btn btn-primary">댓글 등록</button>
     </form>
+
+    <h3 class="my-4">댓글 목록</h3>
+    <div>
+        <ul class="list-group">
+        {% for comm in comment %}
+            <li class="list-group-item">
+                <p>{{ comm.content }}</p>
+                <small>작성자: {{ comm.user_name}} | 작성일: {{ comm.createdAt|date:"Y-m-d H:i" }}</small>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
 </div>
 </body>
 </html>

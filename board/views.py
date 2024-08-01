@@ -53,7 +53,8 @@ def index(request):
 
 def detail(request, board_id):
     board = get_object_or_404(Board, pk=board_id)
-    comment = Comment.objects.filter(board_id=board_id)
+    comment = Comment.objects.raw(f'SELECT * FROM board_comment c, board_user u where c.user_id = u.user_id and board_id_id = {board_id}')
+    
     context = {
         'board': board,
         'comment': comment
