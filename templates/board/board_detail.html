@@ -23,7 +23,7 @@
 <h3>댓글</h3>
 <div>
     <ul>
-    {% for comm in comment.answer_set.all %}
+    {% for comm in comment %}
         <li>{{ comm.content }}</li>
         <li>{{ comm.user_id }}</li>
     {% endfor %}
