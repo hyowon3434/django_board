@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 작성</title>
+</head>
+<body>
+    <h1>새 게시글 작성</h1>
+
+    <form action="{% url 'board:create_board' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <label for="content">내용:</label>
+            <textarea id="content" name="content" rows="15" cols="100" required></textarea>
+        </div>
+        <div>
+            <label for="writer_id">작성자 ID:</label>
+            <input type="text" id="writer_id" name="writer_id" required>
+        </div>
+        <div>
+            <button type="submit">등록</button>
+        </div>
+    </form>
+</body>
+</html>

@@ -7,13 +7,20 @@ import json
 def index(request):
     
     board_list = Board.objects.order_by('board_id')
-    data = list(board_list.values())
-    print(data[0])
-    return HttpResponse(data)
-    #return render(request, 'board/board_list.html', context)
-    #return JsonResponse(data, safe=False)
+    context = {'board_list' : board_list}
+    
+    return render(request, 'board/board_list.html', context)
 
 def detail(request, board_id):
     board = get_object_or_404(Board, pk=board_id)
     context = {'board': board}
     return render(request, 'board/board_detail.html', context)
+
+def create_board(request):
+    if request.method == "POST":
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        writer_id = request.POST.get('writer_id')
+        Board.objects.create(title=title, content=content, writer_id=writer_id)
+        return redirect('board:index')
+    return render(request, 'board/board_form.html')
